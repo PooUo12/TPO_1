@@ -3,40 +3,47 @@ package prog.domain;
 import lombok.Getter;
 import lombok.Setter;
 import prog.exceptions.ImpossibleMoveException;
-import prog.exceptions.NegativeNumberException;
+import prog.exceptions.CreationException;
 import prog.exceptions.NotEnoughTeethException;
 
 @Getter
-public class Mouth {
+public class Head {
+    private final String name;
     private final int teeth;
-    private final boolean chelust;
+    private final boolean jaw;
+    private final int eyes;
     @Setter
     private boolean dirt;
     @Setter
-    private Conditions chelustCondition;
+    private Conditions jawCondition;
 
-    public Mouth(int teeth, boolean chelust) throws NotEnoughTeethException, NegativeNumberException {
-        if (teeth == 0 && chelust){
-            throw new NotEnoughTeethException("have chelust");
+    public Head(String name, int teeth, boolean jaw, int eyes) throws NotEnoughTeethException, CreationException {
+        if (teeth == 0 && jaw){
+            throw new NotEnoughTeethException("have jaw");
         }
         if (teeth < 0){
-            throw new NegativeNumberException("teeth");
+            throw new CreationException("negative amount of teeth");
         }
-        if (chelust){
-            setChelustCondition(Conditions.normal);
+        if (eyes < 0){
+            throw new CreationException("negative amount of eyes");
+        }
+        if (jaw){
+            setJawCondition(Conditions.normal);
         }
         if (teeth > 0){
             setDirt(true);
         }
-        this.chelust = chelust;
+        this.name = name;
+        this.eyes = eyes;
+        this.jaw = jaw;
         this.teeth = teeth;
     }
 
-    public void chelustFall() throws ImpossibleMoveException {
-        if (chelust && chelustCondition == Conditions.normal){
-            setChelustCondition(Conditions.fell);
+    public void jawFall() throws ImpossibleMoveException {
+        if (jaw && jawCondition == Conditions.normal){
+            setJawCondition(Conditions.fell);
         } else {
-            throw new ImpossibleMoveException("fall chelust");
+            throw new ImpossibleMoveException("fall jaw");
         }
     }
 

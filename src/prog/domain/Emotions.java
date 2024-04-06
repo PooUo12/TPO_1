@@ -1,2 +1,8 @@
-package prog.domain;public enum Emotions {
+package prog.domain;
+
+public enum Emotions {
+        normal,
+        nervous,
+        smiling,
+        chilling
 }
